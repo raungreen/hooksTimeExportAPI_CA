@@ -1,3 +1,11 @@
+/*
+author: Raun Green
+created date: 2/22/2019
+Change log: i.e. 3/4/2019 rg [description of change]
+
+
+*/
+
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import {
@@ -20,6 +28,7 @@ import { CSVLink } from 'react-csv';
 const REACT_APP_API_KEY = process.env.REACT_APP_API_KEY;
 var base64 = new Buffer(REACT_APP_API_KEY + ':xxx').toString('base64');
 
+// set state using Hooks
 function App() {
   const [results, setResults] = useState([]);
   const [peopleResults, setPeopleResults] = useState({});
@@ -31,12 +40,16 @@ function App() {
 
   useEffect(() => {}, []);
 
+    // call for dates of time tracked
+
   const getResults = async () => {
     const startDate = moment(fromDate).format('YYYYMMDD');
     const endDate = moment(toDate).format('YYYYMMDD');
     const timeEntryData = [];
     let currentPage = 1;
     let total_pages = 0;
+
+  // loop for total pages of results
 
     try {
       do {
@@ -66,6 +79,7 @@ function App() {
     return timeEntryData;
   };
 
+  // call to get company department id
   const getCompanyName_ApiCall = async () => {
     const peopleData = [];
     const response = await axios.get(
@@ -77,6 +91,7 @@ function App() {
       }
     );
 
+      // match employee with company department id
     const rawPeopleData = response.data.people;
     const people = rawPeopleData.reduce((acc, curr) => {
       acc[curr.id] = curr['company-name'];
@@ -92,6 +107,7 @@ function App() {
     getResults();
   };
 
+    // set dates of search
   const handleClearSearch = () => {
     setFromDate('');
     setToDate('');
@@ -109,6 +125,7 @@ function App() {
     setToDate(ogValue);
   };
 
+    // define global constants
   const projectName = 'Project';
   const date = 'Date';
   const task = 'Task';
@@ -117,6 +134,7 @@ function App() {
   const department = 'Department';
   const empName = 'Employee';
 
+    // formatted results to specs
   const getFormatResults = (rawResults, rawPeople) => {
     return [...rawResults].map(data => {
       data.date = moment(data.date).format('MM/DD/YYYY');
@@ -131,6 +149,7 @@ function App() {
     });
   };
 
+  // defined results to be output to csv
   const csvHeaders = [
     { label: projectName, key: 'project-name' },
     { label: date, key: 'date' },
