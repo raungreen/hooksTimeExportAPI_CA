@@ -40,7 +40,7 @@ function App() {
 
   useEffect(() => {}, []);
 
-    // call for dates of time tracked
+  // call for dates of time tracked
 
   const getResults = async () => {
     const startDate = moment(fromDate).format('YYYYMMDD');
@@ -49,7 +49,7 @@ function App() {
     let currentPage = 1;
     let total_pages = 0;
 
-  // loop for total pages of results
+    // loop for total pages of results
 
     try {
       do {
@@ -91,7 +91,7 @@ function App() {
       }
     );
 
-      // match employee with company department id
+    // match employee with company department id
     const rawPeopleData = response.data.people;
     const people = rawPeopleData.reduce((acc, curr) => {
       acc[curr.id] = curr['company-name'];
@@ -107,7 +107,7 @@ function App() {
     getResults();
   };
 
-    // set dates of search
+  // set dates of search
   const handleClearSearch = () => {
     setFromDate('');
     setToDate('');
@@ -125,7 +125,7 @@ function App() {
     setToDate(ogValue);
   };
 
-    // define global constants
+  // define global constants
   const projectName = 'Project';
   const date = 'Date';
   const task = 'Task';
@@ -134,7 +134,7 @@ function App() {
   const department = 'Department';
   const empName = 'Employee';
 
-    // formatted results to specs
+  // formatted results to specs
   const getFormatResults = (rawResults, rawPeople) => {
     return [...rawResults].map(data => {
       data.date = moment(data.date).format('MM/DD/YYYY');
